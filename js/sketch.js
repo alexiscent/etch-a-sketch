@@ -24,7 +24,7 @@ function addGradualShading() {
 
 function resize() {
     const newSize = prompt('Enter new size');
-    if (+newSize <= 100) {
+    if (+newSize <= 100 && +newSize > 0) {
         const area = document.getElementById('sketch');
         area.style.setProperty('--size', newSize);
         makeArea();
