@@ -67,11 +67,12 @@ body
     border: 3px solid var(--border-clr);
     background-color: white;
     --size: 16;
+    --border-width: 0.5px;
 }
 
 .unit
 {
     width: calc(100% / var(--size));
-    padding-bottom: calc(100% / var(--size));
-    border: 0.5px solid var(--border-clr);
+    padding-bottom: calc(100% / var(--size) - 2 * var(--border-width));
+    border: var(--border-width) solid var(--border-clr);
 }
