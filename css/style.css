@@ -52,6 +52,7 @@ body
     margin: 5px 10px;
     border-radius: 15px;
 }
+.active,
 .option:hover
 {
     background-color: var(--bg-selected);
@@ -65,7 +66,6 @@ body
     max-width: 70vh;
     flex: 1 0 auto;
     border: 3px solid var(--border-clr);
-    background-color: white;
     --size: 16;
     --border-width: 0.5px;
 }
@@ -75,4 +75,5 @@ body
     width: calc(100% / var(--size));
     padding-bottom: calc(100% / var(--size) - 2 * var(--border-width));
     border: var(--border-width) solid var(--border-clr);
+    background-color: white;
 }

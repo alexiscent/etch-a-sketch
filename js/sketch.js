@@ -4,6 +4,7 @@ makeArea();
 function initEvents() {
     addSizeChange();
     addClear();
+    addGradualShading();
 }
 
 function addSizeChange() {
@@ -14,6 +15,11 @@ function addSizeChange() {
 function addClear() {
     const clearBtn = document.getElementById('clear');
     clearBtn.addEventListener('click', clear);
+}
+
+function addGradualShading() {
+    const gradualBtn = document.getElementById('gradual');
+    gradualBtn.addEventListener('click', () => toggleMode(gradualBtn, gradualShading));
 }
 
 function resize() {
@@ -29,6 +35,17 @@ function clear() {
     const squares = document.getElementsByClassName('unit');
     for (let i = 0; i < squares.length; i++) {
         squares[i].style['background-color'] = '';
+        squares[i].style['filter'] = '';
+    }
+}
+
+function toggleMode(btn, func) {
+    if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        enableDraw();
+    } else {
+        btn.classList.add('active');
+        enableDraw(func);
     }
 }
 
@@ -41,12 +58,18 @@ function makeArea() {
     }
     area.replaceChildren(...squares);
     enableDraw();
+    resetMode();
 }
 
 function createSquare() {
     const square = document.createElement('div');
     square.classList.add('unit');
     return square;
+}
+
+function resetMode() {
+    const mode = document.querySelector('.active');
+    if (mode) mode.classList.remove('active');
 }
 
 function enableDraw(func = draw) {
@@ -58,4 +81,17 @@ function enableDraw(func = draw) {
 
 function draw(obj) {
     obj.style['background-color'] = 'black';
+}
+
+function gradualShading(obj) {
+    const re = /(?<=brightness\()[\d\.]+(?=\))/;
+    const filter = obj.style.filter;
+    let brightness = filter.match(re);
+    if (brightness) {
+        brightness = brightness[0] - 0.1;
+        obj.style.filter = filter.replace(re, brightness);
+    } else {
+        brightness = 0.9;
+        obj.style.filter = filter.concat(' brightness(' + brightness + ')');
+    }
 }
